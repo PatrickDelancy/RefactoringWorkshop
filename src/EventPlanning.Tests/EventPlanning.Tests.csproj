@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2C9898C3-043E-422F-88E6-433CF29DBB5C}</ProjectGuid>
+    <ProjectGuid>{6248B6E9-BE3B-4807-B0E7-F2283D4B4FBF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EventPlanning.Tests</RootNamespace>
@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Repositories\SessionRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -103,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventPlanning\EventPlanning.csproj">
-      <Project>{82B50CE0-DAD7-40D2-A039-90ED9214EA0C}</Project>
+      <Project>{468488D0-86DA-487D-8CAC-E731AE2F88EE}</Project>
       <Name>EventPlanning</Name>
     </ProjectReference>
   </ItemGroup>
