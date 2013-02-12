@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using EventPlanning.Repository;
 
 namespace EventPlanning.Controllers
 {
@@ -9,7 +10,9 @@ namespace EventPlanning.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var repository = new SessionRepository();
+
+            return View(repository.GetAllForEvent(""));
         }
 
         public ActionResult Display(string sessionSlug)
