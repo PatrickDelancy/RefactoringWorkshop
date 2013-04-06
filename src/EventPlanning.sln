@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanning", "EventPlanning\EventPlanning.csproj", "{468488D0-86DA-487D-8CAC-E731AE2F88EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSummit", "CodeSummit\CodeSummit.csproj", "{468488D0-86DA-487D-8CAC-E731AE2F88EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanning.Tests", "EventPlanning.Tests\EventPlanning.Tests.csproj", "{6248B6E9-BE3B-4807-B0E7-F2283D4B4FBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSummit.Tests", "CodeSummit.Tests\CodeSummit.Tests.csproj", "{6248B6E9-BE3B-4807-B0E7-F2283D4B4FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
