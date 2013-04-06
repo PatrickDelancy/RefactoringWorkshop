@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EventPlanning.Models.SessionModel>
+﻿@model IEnumerable<EventPlanning.Models.SessionListModel>
 
 @{
     ViewBag.Title = "Sessions";
@@ -25,7 +25,7 @@ else
     {
         <div>
             <h3>@session.Name</h3>
-            <em>@session.Presenter</em>
+            <em>@(session.Speaker == null ? "No Presenter" : string.Format("{0} {1}", session.Speaker.FirstName, session.Speaker.LastName) )</em>
             <p>
                 @session.Description
             </p>

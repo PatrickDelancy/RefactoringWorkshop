@@ -171,8 +171,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\EventModel.cs" />
-    <Compile Include="Models\SessionModel.cs" />
-    <Compile Include="Models\SpeakerModel.cs" />
+    <Compile Include="Models\SessionModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SessionRepository.cs" />
   </ItemGroup>
@@ -293,6 +292,8 @@
     <Content Include="Views\Sessions\Display.cshtml" />
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Speakers\Display.cshtml" />
+    <Content Include="Views\Sessions\Edit.cshtml" />
+    <Content Include="Views\Sessions\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,7 +18,7 @@ namespace EventPlanning.Tests.Repositories
         [TestMethod]
         public void CanGetSessions()
         {
-            Assert.IsTrue(_repository.GetAllForEvent("").Any());
+            Assert.IsTrue(_repository.GetAll().Any());
         }
     }
 }
