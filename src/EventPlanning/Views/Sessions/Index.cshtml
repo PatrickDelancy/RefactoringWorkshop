@@ -15,6 +15,10 @@
         </div>
     </section>
 }
+@if (WebSecurity.IsAuthenticated)
+{
+    @Html.ActionLink("Submit A Session", "Add");
+}
 @if (Model == null || !Model.Any())
 {
     <div>There are no sessions scheduled. Please check back later.</div>
