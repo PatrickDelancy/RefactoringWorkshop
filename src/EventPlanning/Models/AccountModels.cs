@@ -25,6 +25,12 @@ namespace EventPlanning.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string EmailAddress { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string TwitterHandle { get; set; }
+        public string WebsiteUrl { get; set; }
+        public string Biography { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -86,6 +92,34 @@ namespace EventPlanning.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email Address")]
+        public string EmailAddress { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Twitter Handle")]
+        [RegularExpression(@"\@\S+", ErrorMessage = "Please include the @ for your handle.")]
+        public string TwitterHandle { get; set; }
+
+        [DataType(DataType.Url)]
+        [Display(Name = "Website or Blog Url")]
+        public string WebsiteUrl { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Autobiography")]
+        public string Biography { get; set; }
     }
 
     public class ExternalLogin

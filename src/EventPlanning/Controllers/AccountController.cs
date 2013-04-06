@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
@@ -80,7 +79,35 @@ namespace EventPlanning.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    using (var db = new UsersContext())
+                    {
+                        var user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                        if (user == null)
+                        {
+                            db.UserProfiles.Add(new UserProfile
+                                                    {
+                                                        UserName = model.UserName,
+                                                        EmailAddress = model.EmailAddress,
+                                                        FirstName = model.FirstName,
+                                                        LastName = model.LastName,
+                                                        TwitterHandle = model.TwitterHandle,
+                                                        WebsiteUrl = model.WebsiteUrl,
+                                                        Biography = model.Biography
+                                                    });
+                        }
+                        else
+                        {
+                            user.EmailAddress = model.EmailAddress;
+                            user.FirstName = model.FirstName;
+                            user.LastName = model.LastName;
+                            user.TwitterHandle = model.TwitterHandle;
+                            user.WebsiteUrl = model.WebsiteUrl;
+                            user.Biography = model.Biography;
+                        }
+                        db.SaveChanges();
+                    }
+
+                    WebSecurity.Login(model.EmailAddress, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
