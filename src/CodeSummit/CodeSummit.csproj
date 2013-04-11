@@ -272,7 +272,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_EditUserPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />

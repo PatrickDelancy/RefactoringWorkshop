@@ -38,14 +38,12 @@ namespace CodeSummit.Models
         public string ExternalLoginData { get; set; }
     }
 
-    public class LocalPasswordModel
+    public class ManageAccountModel
     {
-        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
-        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "New password")]
@@ -55,6 +53,37 @@ namespace CodeSummit.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email Address")]
+        public string EmailAddress { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Twitter Handle")]
+        [RegularExpression(@"\@\S+", ErrorMessage = "Please include the @ for your handle.")]
+        public string TwitterHandle { get; set; }
+
+        [DataType(DataType.Url)]
+        [Display(Name = "Website or Blog Url")]
+        public string WebsiteUrl { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Autobiography")]
+        public string Biography { get; set; }
     }
 
     public class LoginModel

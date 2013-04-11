@@ -1,4 +1,4 @@
-﻿@model CodeSummit.Models.LocalPasswordModel
+﻿@model CodeSummit.Models.ManageAccountModel
 @{
     ViewBag.Title = "Manage Account";
 }
@@ -13,7 +13,7 @@
 
 @if (ViewBag.HasLocalPassword)
 {
-    @Html.Partial("_ChangePasswordPartial")
+    @Html.Partial("_EditUserPartial")
 }
 else
 { 

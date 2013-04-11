@@ -156,12 +156,32 @@ namespace CodeSummit.Controllers
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.AccountUpdateSuccess ? "Your profile has been updated."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+
+            var userId = WebSecurity.GetUserId(User.Identity.Name);
+            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(userId);
             ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
+
+            if (!ViewBag.HasLocalPassword)
+                return View();
+
+            var model = new ManageAccountModel();
+            using (var db = new UsersContext())
+            {
+                var dbUser = db.UserProfiles.First(u => u.UserId == userId);
+                model.UserName = dbUser.UserName;
+                model.EmailAddress = dbUser.EmailAddress;
+                model.FirstName = dbUser.FirstName;
+                model.LastName = dbUser.LastName;
+                model.TwitterHandle = dbUser.TwitterHandle;
+                model.WebsiteUrl = dbUser.WebsiteUrl;
+                model.Biography = dbUser.Biography;
+            }
+
+            return View(model);
         }
 
         //
@@ -169,45 +189,83 @@ namespace CodeSummit.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
+        public ActionResult Manage(ManageAccountModel model)
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
+
+            model.UserName = User.Identity.Name;
             if (hasLocalAccount)
             {
                 if (ModelState.IsValid)
                 {
-                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-                    bool changePasswordSucceeded;
-                    try
+                    var succeeded = true;
+                    if (!string.IsNullOrEmpty(model.NewPassword))
                     {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
+                        // ChangePassword will throw an exception rather than return false in certain failure scenarios.
+                        try
+                        {
+                            succeeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword,
+                                                                                 model.NewPassword);
+                        }
+                        catch (Exception)
+                        {
+                            succeeded = false;
+                        }
+
+                        if (!succeeded)
+                            ModelState.AddModelError("",
+                                                     "The current password is incorrect or the new password is invalid.");
                     }
 
-                    if (changePasswordSucceeded)
+                    try
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        using (var db = new UsersContext())
+                        {
+                            var user = db.UserProfiles.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                            if (user == null)
+                            {
+                                db.UserProfiles.Add(new UserProfile
+                                                        {
+                                                            UserName = model.UserName,
+                                                            EmailAddress = model.EmailAddress,
+                                                            FirstName = model.FirstName,
+                                                            LastName = model.LastName,
+                                                            TwitterHandle = model.TwitterHandle,
+                                                            WebsiteUrl = model.WebsiteUrl,
+                                                            Biography = model.Biography
+                                                        });
+                            }
+                            else
+                            {
+                                user.EmailAddress = model.EmailAddress;
+                                user.FirstName = model.FirstName;
+                                user.LastName = model.LastName;
+                                user.TwitterHandle = model.TwitterHandle;
+                                user.WebsiteUrl = model.WebsiteUrl;
+                                user.Biography = model.Biography;
+                            }
+                            db.SaveChanges();
+                        }
                     }
-                    else
+                    catch (Exception e)
                     {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                        succeeded = false;
+                        ModelState.AddModelError("", e);
                     }
+
+                    if (succeeded)
+                        return RedirectToAction("Manage", new { Message = ManageMessageId.AccountUpdateSuccess });
                 }
             }
             else
             {
                 // User does not have a local password so remove any validation errors caused by a missing
                 // OldPassword field
-                ModelState state = ModelState["OldPassword"];
+                var state = ModelState["OldPassword"];
                 if (state != null)
-                {
                     state.Errors.Clear();
-                }
 
                 if (ModelState.IsValid)
                 {
@@ -373,6 +431,7 @@ namespace CodeSummit.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+            AccountUpdateSuccess
         }
 
         internal class ExternalLoginResult : ActionResult
