@@ -34,8 +34,23 @@ namespace CodeSummit.Repository
                     existingSession.Name = session.Name;
                     existingSession.Description = session.Description;
                     existingSession.Slug = session.Slug;
-                    existingSession.PresenterId = session.PresenterId;
+                    if (session.ScheduledTime.HasValue)
+                        existingSession.ScheduledTime = session.ScheduledTime;
+                    if (!string.IsNullOrEmpty(session.Status))
+                        existingSession.Status = session.Status;
                 }
+                db.SaveChanges();
+            }
+        }
+
+        public void DeleteBySlug(string sessionSlug)
+        {
+            using (var db = new SessionContext())
+            {
+                var existingSession = db.Sessions.FirstOrDefault(x => x.Slug == sessionSlug);
+                if (existingSession == null) return;
+
+                db.Sessions.Remove(existingSession);
                 db.SaveChanges();
             }
         }

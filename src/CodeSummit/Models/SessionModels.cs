@@ -82,5 +82,9 @@ namespace CodeSummit.Models
         public UserProfile Speaker { get; set; }
 
         public DateTime? ScheduledTime { get; set; }
+
+        public string Slug { get; set; }
+
+        public string Status { get; set; }
     }
 }

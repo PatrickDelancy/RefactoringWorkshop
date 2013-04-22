@@ -30,9 +30,26 @@ else
         <div>
             <h3>@session.Name</h3>
             <em>@(session.Speaker == null ? "No Presenter" : string.Format("{0} {1}", session.Speaker.FirstName, session.Speaker.LastName) )</em>
+            @if (session.ScheduledTime.HasValue)
+            {
+                <br /><em>
+                    @session.ScheduledTime.Value.ToLongDateString() @session.ScheduledTime.Value.ToLongTimeString()
+                </em>
+            }
             <p>
                 @session.Description
             </p>
+            @if (Roles.IsUserInRole(WebSecurity.CurrentUserName, "Administrator") || (session.Speaker != null && WebSecurity.CurrentUserId == session.Speaker.UserId && session.Status != "Approved"))
+            {
+                <em>
+                    @Html.ActionLink("Edit", "Edit", new {sessionSlug = session.Slug})
+                    @Html.ActionLink("Delete", "Delete", new { sessionSlug = session.Slug })
+                </em>
+            }
+            else if (session.Speaker != null && WebSecurity.CurrentUserId == session.Speaker.UserId && session.Status == "Approved")
+            {
+                <em>Your session has been approved!</em>
+            }
         </div>
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI;
 using CodeSummit.Filters;
 using CodeSummit.Models;
 using CodeSummit.Repository;
@@ -24,13 +26,18 @@ namespace CodeSummit.Controllers
             }
             var sessions = repository
                 .GetAll()
+                .Where(x => x.Status == CodeSummit.Models.SessionStatus.Approved.ToString() 
+                    || x.PresenterId == WebSecurity.CurrentUserId
+                    || Roles.IsUserInRole("Administrator"))
                 .Select(session =>
                         new SessionListModel
                             {
                                 Name = session.Name,
                                 Description = session.Description,
                                 Speaker = users.FirstOrDefault(profile => profile.UserId == session.PresenterId),
-                                ScheduledTime = session.ScheduledTime
+                                ScheduledTime = session.ScheduledTime,
+                                Slug = session.Slug,
+                                Status = session.Status
                             }
                 );
 
@@ -52,7 +59,16 @@ namespace CodeSummit.Controllers
         [HttpPost]
         public ActionResult Edit(Session session)
         {
-            return View(session);
+            var repository = new SessionRepository();
+            repository.Save(session);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(string sessionSlug)
+        {
+            var repository = new SessionRepository();
+            repository.DeleteBySlug(sessionSlug);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Add()
