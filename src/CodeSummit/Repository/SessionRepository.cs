@@ -54,5 +54,13 @@ namespace CodeSummit.Repository
                 db.SaveChanges();
             }
         }
+
+        public IEnumerable<Session> GetAllByPresenterId(int userId)
+        {
+            using (var db = new SessionContext())
+            {
+                return db.Sessions.Where(x => x.PresenterId == userId).ToArray();
+            }
+        }
     }
 }

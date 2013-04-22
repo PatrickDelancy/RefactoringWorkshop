@@ -15,7 +15,12 @@
         </div>
     </section>
 }
-<h3></h3>
-<div>
-    
-</div>
+@foreach (var speaker in Model)
+{
+    <div>
+        <h3>@string.Format("{0} {1}", speaker.FirstName, speaker.LastName)</h3>
+        <p>
+            @speaker.Biography
+        </p>
+    </div>
+}
