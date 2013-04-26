@@ -1,0 +1,6 @@
+﻿
+************ BEFORE ***************
+BuildAndDeploy.exe -t "Beta" -b -m "Deploying to Beta"
+
+************ AFTER ****************
+BuildAndDeploy.exe -environment "Beta" -message "Deploying to Beta"
