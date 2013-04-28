@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
+using CodeSummit.Data;
 
 namespace CodeSummit.Models
 {
@@ -43,7 +45,7 @@ namespace CodeSummit.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(_slug))
+                if (string.IsNullOrEmpty(_slug) && !string.IsNullOrEmpty(Name))
                     _slug = Regex.Replace(Name.ToLower(), @"[\W]+", "-");
 
                 return _slug;
@@ -59,6 +61,8 @@ namespace CodeSummit.Models
         [DataType(DataType.DateTime)]
         [Display(Name = "Scheduled For")]
         public DateTime? ScheduledTime { get; set; }
+
+        public virtual IList<UserRegistrationDbModel> UserRegistrations { get; set; }
     }
 
     public enum SessionStatus

@@ -34,3 +34,12 @@
         talk with you afterwards.
     </li>
 </ol>
+
+@if (Request.IsAuthenticated)
+{
+    @Html.ActionLink("Register for Code Summit", "Register", "UserRegistration")
+}
+else
+{
+    <p>Please create an account in order to register for Code Summit.</p>
+}
