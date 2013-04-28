@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeSummit.Data;
 using CodeSummit.Models;
 
 namespace CodeSummit.Repository
@@ -8,7 +9,7 @@ namespace CodeSummit.Repository
     {
         public IEnumerable<Session> GetAll()
         {
-            using (var db = new SessionContext())
+            using (var db = new CodeSummitContext())
             {
                 return db.Sessions.ToList();
             }
@@ -21,7 +22,7 @@ namespace CodeSummit.Repository
 
         public void Save(Session session)
         {
-            using (var db = new SessionContext())
+            using (var db = new CodeSummitContext())
             {
                 var existingSession = db.Sessions.FirstOrDefault(x => x.SessionId == session.SessionId);
 
@@ -45,7 +46,7 @@ namespace CodeSummit.Repository
 
         public void DeleteBySlug(string sessionSlug)
         {
-            using (var db = new SessionContext())
+            using (var db = new CodeSummitContext())
             {
                 var existingSession = db.Sessions.FirstOrDefault(x => x.Slug == sessionSlug);
                 if (existingSession == null) return;
@@ -57,7 +58,7 @@ namespace CodeSummit.Repository
 
         public IEnumerable<Session> GetAllByPresenterId(int userId)
         {
-            using (var db = new SessionContext())
+            using (var db = new CodeSummitContext())
             {
                 return db.Sessions.Where(x => x.PresenterId == userId).ToArray();
             }

@@ -1,7 +1,10 @@
-﻿using System.Web.Http;
+﻿using System.Data.Entity;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using CodeSummit.Data;
+using CodeSummit.Migrations;
 
 namespace CodeSummit
 {
@@ -19,6 +22,7 @@ namespace CodeSummit
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CodeSummitContext, Configuration>());
         }
     }
 }

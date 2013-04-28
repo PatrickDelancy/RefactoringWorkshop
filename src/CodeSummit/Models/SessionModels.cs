@@ -8,16 +8,6 @@ using CodeSummit.Data;
 
 namespace CodeSummit.Models
 {
-    public class SessionContext : DbContext
-    {
-        public SessionContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<Session> Sessions { get; set; }
-    }
-
     [Table("Session")]
     public class Session
     {

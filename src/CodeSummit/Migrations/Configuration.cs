@@ -1,3 +1,5 @@
+using CodeSummit.Data;
+
 namespace CodeSummit.Migrations
 {
     using System;
@@ -5,7 +7,7 @@ namespace CodeSummit.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CodeSummit.Data.CodeSummitContext>
+    public class Configuration : DbMigrationsConfiguration<CodeSummitContext>
     {
         public Configuration()
         {
@@ -13,7 +15,7 @@ namespace CodeSummit.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(CodeSummit.Data.CodeSummitContext context)
+        protected override void Seed(CodeSummitContext context)
         {
             //  This method will be called after migrating to the latest version.
 
