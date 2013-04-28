@@ -172,6 +172,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\UserRegistrationModel.cs" />
@@ -181,6 +182,10 @@
     <Compile Include="Repository\UserRegistrationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-CodeSummit-20130211200624.mdf" />
+    <Content Include="App_Data\aspnet-CodeSummit-20130211200624_log.ldf">
+      <DependentUpon>aspnet-CodeSummit-20130211200624.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -301,9 +306,6 @@
     <Content Include="Views\Sessions\Add.cshtml" />
     <Content Include="Views\UserRegistration\Register.cshtml" />
     <Content Include="Views\UserRegistration\EditorFor\SessionModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
