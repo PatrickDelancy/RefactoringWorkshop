@@ -1,0 +1,9 @@
+Chapter 2 - Calorie Calculator:
+1. Just logic
+2. Add validation - Start here with goal to refactor to separate methods. Then compare their results to step three.
+3. Refactor to separate methods
+4. Extract patient to separate class
+5. Separate MalePatient and FemalePatient classes
+6. Added save functionality
+7. Refactored data persistence to separate class
+

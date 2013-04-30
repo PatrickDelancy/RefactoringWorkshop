@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CaloriesCalculator">
+</Property><Property Name="Solution File" Value="C:\Users\Cory\Documents\GitHub\RefactoringWorkshop\src\CaloriesCalculatorChapter1\2.CaloriesCalculatorIBW\CaloriesCalculator.sln">
+</Property><Property Name="Date" Value="Monday, April 29, 2013">
+</Property><Property Name="Time" Value="19:28 PM">
+</Property></Properties><Event ErrorLevel="0" Project="CaloriesCalculator" Source="CaloriesCalculator\CaloriesCalculator.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CaloriesCalculator" Source="CaloriesCalculator\CaloriesCalculator.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CaloriesCalculator.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="CaloriesCalculator.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CaloriesCalculator" Source="CaloriesCalculator\CaloriesCalculator.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
